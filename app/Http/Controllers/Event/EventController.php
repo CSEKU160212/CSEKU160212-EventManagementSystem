@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Event;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\Event;
 
 class EventController extends Controller
 {
@@ -13,7 +15,8 @@ class EventController extends Controller
      */
     public function index()
     {
-        //
+        $events = Event::all()->sortBy('event_start_date', 'desc');
+        return response()->json(['event'=> $events, 'message' => 'Successfully Retrieved All Event'], 200);
     }
 
     /**

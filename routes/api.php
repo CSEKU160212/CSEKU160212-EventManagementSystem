@@ -19,6 +19,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+//login, signup, logout, user routes
 Route::group(['prefix' => 'auth'], function () {
     Route::post('login', 'AuthController@login')->name('auth.login');
     Route::post('signup', 'AuthController@signup')->name('auth.signup');
@@ -29,3 +31,10 @@ Route::group(['prefix' => 'auth'], function () {
       });
 });
 
+Route::group(['prefix' => 'event'], function () {
+    Route::get('allevent', 'Event\EventController@index')->name('event.index');
+
+    Route::group(['middleware' => 'auth:api'], function() {
+          //
+      });
+});

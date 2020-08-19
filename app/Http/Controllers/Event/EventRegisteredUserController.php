@@ -3,13 +3,15 @@
 namespace App\Http\Controllers\Event;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class EventRegisteredUserController extends Controller
 {
+        
     /**
-     * Display a listing of the resource.
+     * index
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function index()
     {
