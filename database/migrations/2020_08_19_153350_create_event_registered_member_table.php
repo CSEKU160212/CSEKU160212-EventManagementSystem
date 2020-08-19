@@ -18,7 +18,7 @@ class CreateEventRegisteredMemberTable extends Migration
             $table->integer('optionid');
             $table->integer('userid');
             $table->string('transactionid')->unique();
-            $table->boolean('is_approved')->default(0);
+            $table->boolean('is_approved')->default(false);
             $table->timestamps();
 
             $table->foreign('userid')->references('id')->on('users');
