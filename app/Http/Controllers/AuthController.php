@@ -14,10 +14,15 @@ class AuthController extends Controller
      * signup
      *
      * @param  mixed $request
-     * @return json response message 
+     * @return Illuminate\Http\Response 
      */
     public function signup(Request $request){
-        $this->validateSignUpData($request);
+        
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|string|email|unique:users',
+            'password' => 'required|string|confirmed'
+        ]);
 
         $user = new User([
             'name' => $request->name,
@@ -26,9 +31,10 @@ class AuthController extends Controller
         ]);
 
         $user->save();
-        return response()->json([
-            'message' => 'Successfully created user!'
-        ], 201);
+
+        $accessToken = $user->createToken('authToken')->accessToken;
+
+        return response([ 'user' => $user, 'access_token' => $accessToken]);
     }
 
         
@@ -36,11 +42,15 @@ class AuthController extends Controller
      * login
      *
      * @param  mixed $request
-     * @return json response
+     * @return Illuminate\Http\Response
      */
     public function login(Request $request){
-        $this->validateLoginData($request);
-
+        $request->validate([
+            'email' => 'required|string|email',
+            'password' => 'required|string',
+            'remember_me' => 'boolean'
+        ]);
+        
         $credentials = request(['email', 'password']);
         if(!Auth::attempt($credentials))
             return response()->json([
@@ -69,7 +79,7 @@ class AuthController extends Controller
      * logout
      *
      * @param  mixed $request
-     * @return json response
+     * @return Illuminate\Http\Response
      */
     public function logout(Request $request)
     {
@@ -89,34 +99,6 @@ class AuthController extends Controller
     {
         return response()->json($request->user());
     }
-    
 
-    /**
-     * validateSignUpData
-     *
-     * @param  mixed $request
-     * @return void
-     */
-    public function validateSignUpData(Request $request){
-        $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|string|email|unique:users',
-            'password' => 'required|string|confirmed'
-        ]);
-    }
-    
-    /**
-     * validateLoginData
-     *
-     * @param  mixed $request
-     * @return void
-     */
-    public function validateLoginData(Request $request){ 
-        $request->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|string',
-            'remember_me' => 'boolean'
-        ]);
-    }
 
 }
