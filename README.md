@@ -1,4 +1,3 @@
-<h1>Event Management System</h1>
 
 <b>Project Objectives:</b>
 
