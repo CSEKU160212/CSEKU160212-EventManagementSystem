@@ -40,8 +40,13 @@ class User extends Authenticatable
     ];
 
     
-    public function users()
+    public function events()
     {
         $this->hasMany('Event', 'userid', 'id');
+    }
+
+    public function eventComments()
+    {
+        $this->hasMany('EventComment', 'userid', 'id');
     }
 }
