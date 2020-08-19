@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Event;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Event;
+use Illuminate\Auth\Events\Validated;
 
 class EventController extends Controller
 {
@@ -37,7 +38,7 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       //
     }
 
     /**

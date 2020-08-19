@@ -19,7 +19,7 @@ class CreateEventOptionsTable extends Migration
             $table->time('time');
             $table->string('place');
             $table->integer('eventid');
-            $table->string('fee');
+            $table->string('fee')->default('0');
             $table->timestamps();
 
             $table->foreign('eventid')->references('id')->on('events');

@@ -23,6 +23,8 @@ class CreateEventsTable extends Migration
             $table->date('reg_start_date');
             $table->date('reg_end_date');
             $table->string('description');
+            $table->string('contact_no')->nullable();
+            $table->string('contact_email')->nullable();
             $table->integer('userid');
             $table->timestamps();
 

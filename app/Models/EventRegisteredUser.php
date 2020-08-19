@@ -11,7 +11,7 @@ class EventRegisteredUser extends Model
      *
      * @var string
      */
-    protected $table = 'event_registered_member';   
+    protected $table = 'event_registered_members';   
     
     /**
      * fillable
