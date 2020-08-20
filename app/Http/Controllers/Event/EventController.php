@@ -38,6 +38,7 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
+        $request->userid = auth('api')->user()->id;
         $event = new Event([
             'title' => $request->title,
             'organized_by' =>$request->organized_by,
