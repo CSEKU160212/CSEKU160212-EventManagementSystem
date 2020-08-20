@@ -20,13 +20,17 @@ class AuthController extends Controller
         
         $request->validate([
             'name' => 'required|string',
+            'contact_no' => 'required|string',
             'email' => 'required|string|email|unique:users',
+            'address' => 'required|string',
             'password' => 'required|string|confirmed'
         ]);
 
         $user = new User([
             'name' => $request->name,
+            'contact_no' => $request->contact_no,
             'email' => $request->email,
+            'address' => $request->address,
             'password' => bcrypt($request->password)
         ]);
 

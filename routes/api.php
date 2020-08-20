@@ -35,6 +35,10 @@ Route::group(['prefix' => 'event'], function () {
     Route::get('allevent', 'Event\EventController@index')->name('event.index');
 
     Route::group(['middleware' => 'auth:api'], function() {
-          //
+        Route::post('store', 'Event\EventController@store')->name('event.store');
+        Route::get('edit/{event}', 'Event\EventController@edit')->name('event.store');
+        Route::put('update/{event}', 'Event\EventController@update')->name('event.update');
+        Route::get('delete/{event}', 'Event\EventController@destroy')->name('event.destroy');
+
       });
 });

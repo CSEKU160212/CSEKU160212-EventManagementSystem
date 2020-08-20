@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Event;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Event;
-use Illuminate\Auth\Events\Validated;
+use Illuminate\Validation\Validator;
 
 class EventController extends Controller
 {
@@ -38,19 +38,6 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-       $request->validate([
-            'title' => 'required|string',
-            'organized_by' =>'required|string',
-            'venue' => 'required|string',
-            'event_start_date' => 'required|date',
-            'event_length' => 'required|string',
-            'reg_start_date' => 'required|date',
-            'reg_end_date' => 'required|date',
-            'decription' => 'require|string',
-            'contact_no' => 'require|string',
-            'contact_email' => 'require|string|email',
-       ]);
-
         $event = new Event([
             'title' => $request->title,
             'organized_by' =>$request->organized_by,
@@ -59,9 +46,10 @@ class EventController extends Controller
             'event_length' => $request->event_length,
             'reg_start_date' => $request->reg_start_date,
             'reg_end_date' => $request->reg_end_date,
-            'decription' => $request->decription,
+            'description' => $request->description,
             'contact_no' => $request->contact_no,
             'contact_email' => $request->contact_email,
+            'userid' => $request->userid,
         ]);
 
        if($event->save()){
@@ -91,10 +79,10 @@ class EventController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  object $event
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Event $event)
     {
         //
     }
@@ -106,9 +94,14 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Event $event)
     {
-        //
+        if($event->update($request->all())){
+            return response()->json(['mesage', 'Event updated successfully', 'event'=>$event], 200);
+        }else{
+            return response()->json(['mesage', 'Event update unsuccessfull', 'event'=>$event], 400);
+        }
+
     }
 
     /**
@@ -117,8 +110,29 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Event $event)
     {
-        //
+        if($event->delete()){
+            return response()->json(['message' => 'Event deleted succesfully'], 200);
+        }else{
+            return response()->json(['message' => 'Can\'t delete event'], 400);
+        }
     }
+
+    /* public function validateData(Request $request){
+        
+         $request->validate([
+             'title' => 'required|string',
+             'organized_by' => 'required|string',
+             'venue' => 'required|string',
+             'event_start_date' => 'required|date',
+             'event_length' => 'required|string',
+             'reg_start_date' => 'required|date',
+             'reg_end_date' => 'required|after_or_equal:reg_start_date',
+             'description' => 'require|string',
+             'contact_no' => 'string',
+             'contact_email' => 'string|email',
+        ]);
+     }
+
 }

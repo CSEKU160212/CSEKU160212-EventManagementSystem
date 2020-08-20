@@ -24,8 +24,8 @@ class Event extends Model
         'venue',
         'event_start_date',
         'event_length',
-        'registration_start_date',
-        'registration_end_date',
+        'reg_start_date',
+        'reg_end_date',
         'description',
         'userid',
     ];
