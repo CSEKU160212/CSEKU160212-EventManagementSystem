@@ -84,7 +84,7 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-        //
+        return response()->json(['event'=>$event], 200);
     }
 
     /**
@@ -134,5 +134,6 @@ class EventController extends Controller
              'contact_email' => 'string|email',
         ]);
      }
+     */
 
 }
