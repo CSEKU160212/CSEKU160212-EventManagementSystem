@@ -9,6 +9,9 @@ use Illuminate\Validation\Validator;
 
 class EventController extends Controller
 {
+
+    //done Testing: index, store show, edit, update, destroy funtions
+
     /**
      * Display a listing of the resource.
      *
@@ -83,8 +86,10 @@ class EventController extends Controller
      * @param  object $event
      * @return \Illuminate\Http\Response
      */
-    public function edit(Event $event)
+    public function edit($id)
     {
+        $event = Event::find($id);
+
         if($event->userid == auth('api')->user()->id){
             return response()->json(['message' => 'Found event succesfully', 'event'=>$event], 200);
         }else{
@@ -99,8 +104,9 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Event $event)
+    public function update(Request $request, $id)
     {
+        $event = Event::find($id);
         if($event->userid != auth('api')->user()->id){
             return response()->json(['message' => 'Forbidden'], 403);
         }
@@ -119,8 +125,9 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Event $event)
+    public function destroy($id)
     {
+        $event = Event::find($id);
         if($event->userid != auth('api')->user()->id){
             return response()->json(['message' => 'Forbidden'], 403);
         }

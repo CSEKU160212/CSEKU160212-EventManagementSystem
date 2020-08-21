@@ -32,7 +32,7 @@ class EventComment extends Model
      */
     public function event()
     {
-        return $this->belongsTo('Event', 'eventid', 'id');
+        return $this->belongsTo('Event', 'eventid');
     }
     
     /**
@@ -42,6 +42,6 @@ class EventComment extends Model
      */
     public function user()
     {
-        return $this->belongsTo('User', 'userid', 'id');
+        return $this->belongsTo('User', 'userid');
     }
 }

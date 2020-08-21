@@ -39,16 +39,15 @@ Route::group(['prefix' => 'event'], function () {
         Route::get('edit/{id}', 'Event\EventController@edit')->name('event.edit');
         Route::get('show/{id}', 'Event\EventController@show')->name('event.show');
         Route::put('update/{id}', 'Event\EventController@update')->name('event.update');
-        Route::get('delete/{id}', 'Event\EventController@destroy')->name('event.destroy');
+        Route::delete('delete/{id}', 'Event\EventController@destroy')->name('event.destroy');
 
         Route::group(['prefix' => 'option'], function () {
-            Route::get('all/{id}', 'Event\EventOptionController@index')->name('event.option.index');
+            Route::get('all/{eventid}', 'Event\EventOptionController@index')->name('event.option.index');
             Route::post('store/{eventid}', 'Event\EventOptionController@store')->name('event.option.store');
             Route::get('show/{optionid}', 'Event\EventOptionController@show')->name('event.option.show');
             Route::get('edit/{optionid}', 'Event\EventOptionController@edit')->name('event.option.edit');
             Route::put('update/{optionid}', 'Event\EventOptionController@update')->name('event.option.update');
-            Route::get('delete/{optionid}', 'Event\EventOptionController@destroy')->name('event.option.delete');
-
+            Route::delete('delete/{optionid}', 'Event\EventOptionController@destroy')->name('event.option.delete');
         });
       });
 });

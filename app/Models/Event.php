@@ -47,7 +47,7 @@ class Event extends Model
      */
     public function eventOptions()
     {
-        return $this->hasMany('EventOption', 'eventid', 'id');
+        return $this->hasMany('EventOption', 'id', 'eventid',);
     }
         
     /**

@@ -21,8 +21,17 @@ class CreateEventCommentsTable extends Migration
             $table->integer('userid');
             $table->timestamps();
 
-            $table->foreign('eventid')->references('id')->on('events');
-            $table->foreign('userid')->references('id')->on('users');
+            $table->foreign('eventid')
+                    ->references('id')
+                    ->on('events')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
+
+            $table->foreign('userid')
+                    ->references('id')
+                    ->on('users')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
         });
     }
 

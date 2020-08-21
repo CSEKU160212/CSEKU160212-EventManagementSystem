@@ -21,7 +21,11 @@ class CreateEventRegisteredMembersTable extends Migration
             $table->boolean('is_approved')->default(false);
             $table->timestamps();
 
-            $table->foreign('userid')->references('id')->on('users');
+            $table->foreign('userid')
+                    ->references('id')
+                    ->on('users')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
         });
     }
 

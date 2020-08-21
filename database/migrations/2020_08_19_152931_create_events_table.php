@@ -28,7 +28,11 @@ class CreateEventsTable extends Migration
             $table->integer('userid');
             $table->timestamps();
 
-            $table->foreign('userid')->references('id')->on('users');
+            $table->foreign('userid')
+                    ->references('id')
+                    ->on('users')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
         });
     }
 

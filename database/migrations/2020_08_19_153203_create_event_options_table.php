@@ -22,7 +22,11 @@ class CreateEventOptionsTable extends Migration
             $table->string('fee')->default('0');
             $table->timestamps();
 
-            $table->foreign('eventid')->references('id')->on('events');
+            $table->foreign('eventid')
+                    ->references('id')
+                    ->on('events')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
         });
     }
 

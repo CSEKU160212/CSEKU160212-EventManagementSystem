@@ -32,7 +32,7 @@ class EventRegisteredUser extends Model
      */
     public function eventOption()
     {
-        return $this->belongsTo('EventOption', 'optionid', 'id');
+        return $this->belongsTo('EventOption', 'optionid');
     }
     
     /**

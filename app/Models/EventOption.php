@@ -33,6 +33,11 @@ class EventOption extends Model
      */
     public function event()
     {
-        return $this->belongsTo('Event', 'eventid', 'id');
+        return $this->belongsTo('App\Models\Event', 'eventid');
+    }
+
+    public function eventRegisteredUser()
+    {
+        return $this->hasMany('App\Models\EventRegisteredUser', 'id', 'optionid');
     }
 }
