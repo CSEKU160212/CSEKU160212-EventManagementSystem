@@ -16,7 +16,7 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = Event::all()->sortBy('event_start_date', 'desc');
+        $events = Event::all()->sortByDesc('event_start_date');
         return response()->json(['event'=> $events, 'message' => 'Successfully Retrieved All Event'], 200);
     }
 
@@ -54,7 +54,7 @@ class EventController extends Controller
         ]);
 
        if($event->save()){
-            return response()->json(['message' => 'Event created succesfully', 'event' => $event], 200 );
+            return response()->json(['message' => 'Event created succesfully', 'event' => $event], 201);
        }else{
             return response()->json(['message' => 'Failed to create event'], 400);
        }
@@ -85,7 +85,11 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-        return response()->json(['event'=>$event], 200);
+        if($event->userid == auth('api')->user()->id){
+            return response()->json(['message' => 'Found event succesfully', 'event'=>$event], 200);
+        }else{
+            return response()->json(['message' => 'Forbidden'], 403);
+        }
     }
 
     /**
@@ -97,10 +101,14 @@ class EventController extends Controller
      */
     public function update(Request $request, Event $event)
     {
+        if($event->userid != auth('api')->user()->id){
+            return response()->json(['message' => 'Forbidden'], 403);
+        }
+
         if($event->update($request->all())){
-            return response()->json(['mesage', 'Event updated successfully', 'event'=>$event], 200);
+            return response()->json(['mesage' => 'Event updated successfully', 'event'=>$event], 200);
         }else{
-            return response()->json(['mesage', 'Event update unsuccessfull', 'event'=>$event], 400);
+            return response()->json(['mesage' => 'Event update unsuccessfull', 'event'=>$event], 400);
         }
 
     }
@@ -113,6 +121,10 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
+        if($event->userid != auth('api')->user()->id){
+            return response()->json(['message' => 'Forbidden'], 403);
+        }
+        
         if($event->delete()){
             return response()->json(['message' => 'Event deleted succesfully'], 200);
         }else{
