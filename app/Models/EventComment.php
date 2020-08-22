@@ -20,7 +20,6 @@ class EventComment extends Model
      */
     protected $fillable = [
         'comment',
-        'time',
         'eventid',
         'userid',
     ];
@@ -42,6 +41,6 @@ class EventComment extends Model
      */
     public function user()
     {
-        return $this->belongsTo('User', 'userid');
+        return $this->belongsTo('App\User', 'userid');
     }
 }

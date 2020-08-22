@@ -16,7 +16,6 @@ class CreateEventCommentsTable extends Migration
         Schema::create('event_comments', function (Blueprint $table) {
             $table->id();
             $table->string('comment', 2000);
-            $table->dateTime('time');
             $table->integer('eventid');
             $table->integer('userid');
             $table->timestamps();

@@ -128,6 +128,5 @@ class EventOptionController extends Controller
         }else{
             return response()->json(['mesage' => 'Couldn\'t delete option', 'eventOption'=>$option], 400);
         }
-
     }
 }

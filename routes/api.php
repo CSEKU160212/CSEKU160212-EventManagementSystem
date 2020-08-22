@@ -49,5 +49,14 @@ Route::group(['prefix' => 'event'], function () {
             Route::put('update/{optionid}', 'Event\EventOptionController@update')->name('event.option.update');
             Route::delete('delete/{optionid}', 'Event\EventOptionController@destroy')->name('event.option.delete');
         });
+
+        Route::group(['prefix' => 'comment'], function () {
+            Route::get('all/{eventid}', 'Event\EventCommentController@index')->name('event.comment.index');
+            Route::post('store/{eventid}', 'Event\EventCommentController@store')->name('event.comment.store');
+            Route::get('show/{commentid}', 'Event\EventCommentController@show')->name('event.comment.show');
+            Route::get('edit/{commentid}', 'Event\EventCommentController@edit')->name('event.comment.edit');
+            Route::put('update/{commentid}', 'Event\EventCommentController@update')->name('event.comment.update');
+            Route::delete('delete/{commentid}', 'Event\EventCommentController@destroy')->name('event.comment.delete');
+        });
       });
 });
